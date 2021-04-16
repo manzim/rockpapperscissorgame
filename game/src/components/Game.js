@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { Alert, Button, ButtonGroup } from '@blueprintjs/core'
 
-
 function Game() {
 
     const weapons = ["paper", "scissors", "rock"];
@@ -13,6 +12,9 @@ function Game() {
     const [playerScore, setPlayerScore] = useState(0)
     const [computerScore, setComputerScore] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
+
+    const _win = 'You win!'
+    const _lose = 'Computer wins'
 
     const chooseWeapon = (weapon) => {
         const choiceP1 = weapon;
@@ -28,15 +30,15 @@ function Game() {
             if (player2 === "scissors") {
                 return ("Computer wins")
             } else if (player2 === "rock") {
-                return ("You win!!!!!")
+                return ("You win!")
             }
             return "it's a tie"
         }
         else if (player1 === "rock") {
             if (player2 === "scissors") {
-                return ("You wins")
+                return ("You win!")
             } else if (player2 === "paper") {
-                return ("computer win!!!!!")
+                return ("Computer wins")
             }
             return "it's a tie"
         }
@@ -44,7 +46,7 @@ function Game() {
             if (player2 === "rock") {
                 return ("Computer wins")
             } else if (player2 === "paper") {
-                return ("you win!!!!!")
+                return ("You win!")
             }
             return "it's a tie"
         }
@@ -56,13 +58,22 @@ function Game() {
                 <div className="flex justify-around pa4">
                     <div className="bp3-card w-40 tl pa2 bg-red">
                         <span> Player score </span>
-                        <span className="tr fr"> { } </span>
+                        <span className="tr fr"> { } {playerScore}</span>
                     </div>
                     <div className="bp3-card w-40 tl pa2 bg-green">
                         <span> Computer score </span>
-                        <span className="tr fr"> 20 </span>
+                        <span className="tr fr"> {computerScore} </span>
                     </div>
                 </div>
+                <div className="tc ">
+                    {playerOne.length ?
+                        <span className="f1 lh-copy">You have choosen</span>
+                        :
+                        <span className="f1 lh-copy">Choose anyone</span>
+                    }
+                    <span className="f1 lh-copy truncate"> {'  '}{playerOne}!!!</span>
+                </div>
+
                 <div className="flex justify-around pa4">
                     <div className="pa3">
                         <img
@@ -107,7 +118,12 @@ function Game() {
                             loading={loading}
                             disabled={playerOne.length > 0 ? false : true}
                             className="w-100 tc center mb4"
-                            onClick={() => { setLoading(true); getWinner(); setIsOpen(true) }}
+                            onClick={() => {
+                                setLoading(true);
+                                getWinner();
+                                setIsOpen(true);
+                                // setComputerScore()
+                            }}
                         />
                     </ButtonGroup>
                     <Alert
@@ -126,8 +142,13 @@ function Game() {
                         }
                         onConfirm={() => {
                             setIsOpen(false);
-                            setLoading(false)
-                            setPlayerOne('')
+                            setLoading(false);
+                            setPlayerOne('');
+                            setComputerScore(winer === _lose ? (computerScore+1)  : computerScore)
+                            setPlayerScore(winer === _win ? (playerScore+1) : playerScore)
+                            console.log('pc score:', computerScore)
+                            console.log('my score:', playerScore)
+                            console.log('winer:', winer)
                         }
                         }
                     >
@@ -135,17 +156,6 @@ function Game() {
                         <h1>{winer}</h1>
                     </Alert>
                 </div>
-                <div className="tc ">
-                    {playerOne.length ?
-                        <span className="f1 lh-copy">You have choosen</span>
-                        :
-                        <span className="f1 lh-copy">Choose anyone</span>
-                    }
-                    <span className="f1 lh-copy truncate"> {'  '}{playerOne}!!!</span>
-                </div>
-                {/* <h1>Choices are</h1>
-                <h2>player one:{playerOne}</h2> */}
-                <h1></h1>
             </div>
         </div>
     )

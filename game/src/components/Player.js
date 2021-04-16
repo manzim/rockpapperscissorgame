@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Button, ButtonGroup, InputGroup } from '@blueprintjs/core'
 import { useHistory } from 'react-router';
 
+import '../externalCSS/externalCSS.css'
+
 function Player() {
 
     const [name, setName] = useState('')
@@ -11,9 +13,7 @@ function Player() {
 
     return (
         <div>
-            <article class="vh-100 dt w-100 bg-near-white" 
-                
-            >
+            <article class="_landingPage_ vh-100 dt w-100 bg-near-white" >
                 <div class="dtc v-mid tc white ph3 ph4-l flex-column justify-around">
                     <InputGroup
                         className="w-50 tc center mb4"
