@@ -12,9 +12,12 @@ function Game() {
     const [playerScore, setPlayerScore] = useState(0)
     const [computerScore, setComputerScore] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
+    const [totalGame, setTotalGame] = useState(0)
+    const [totalTie, setTotalTie] = useState(0)
 
     const _win = 'You win!'
     const _lose = 'Computer wins'
+    const _tie = 'it\'s a tie'
 
     const chooseWeapon = (weapon) => {
         const choiceP1 = weapon;
@@ -55,15 +58,24 @@ function Game() {
     return (
         <div>
             <div className="w-100 bg-pink vh-100 center">
-                <div className="flex justify-around pa4">
-                    <div className="bp3-card w-40 tl pa2 bg-red">
-                        <span> Player score </span>
-                        <span className="tr fr"> { } {playerScore}</span>
+                <div className="pa4 cf">
+                <div className="bp3-card fl mb3-l mb3 mb0-l pa3 w-25-l w-50-m w-50 tl">
+                        <span className="b fw5 f5"> Games Played </span>
+                        <span className="tr b fw5 f4 fr black"> { } {totalGame}</span>
                     </div>
-                    <div className="bp3-card w-40 tl pa2 bg-green">
-                        <span> Computer score </span>
-                        <span className="tr fr"> {computerScore} </span>
+                    <div className="bp3-card fl mb3-l mb3 mb0-l pa3 w-25-l w-50-m w-50 tl">
+                        <span className="b fw5 f5"> Games Tied </span>
+                        <span className="tr b fw5 f4 fr blue"> {totalTie} </span>
                     </div>
+                    <div className=" bp3-card fl pa3 w-25-l w-50-m w-50 tl">
+                        <span className="b fw5 f5"> Player score </span>
+                        <span className="tr b fw5 f4 fr green"> { } {playerScore}</span>
+                    </div>
+                    <div className=" bp3-card fl pa3 w-25-l w-50-m w-50 tl">
+                        <span className="b fw5 f5"> Computer score </span>
+                        <span className="tr b fw5 f4 fr red"> {computerScore} </span>
+                    </div>
+
                 </div>
                 <div className="tc ">
                     {playerOne.length ?
@@ -137,7 +149,12 @@ function Game() {
                         onCancel={() => {
                             setIsOpen(false);
                             setLoading(false)
+                            setTotalGame(totalGame+1)
                             setPlayerOne('')
+                            setComputerScore(winer === _lose ? (computerScore+1)  : computerScore)
+                            setPlayerScore(winer === _win ? (playerScore+1) : playerScore)
+                            setTotalGame(totalGame+1)
+                            setTotalTie(winer === _tie ? totalTie+1 : totalTie)
                         }
                         }
                         onConfirm={() => {
@@ -146,6 +163,8 @@ function Game() {
                             setPlayerOne('');
                             setComputerScore(winer === _lose ? (computerScore+1)  : computerScore)
                             setPlayerScore(winer === _win ? (playerScore+1) : playerScore)
+                            setTotalGame(totalGame+1)
+                            setTotalTie(winer === _tie ? totalTie+1 : totalTie)
                             console.log('pc score:', computerScore)
                             console.log('my score:', playerScore)
                             console.log('winer:', winer)
