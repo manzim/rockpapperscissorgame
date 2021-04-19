@@ -16,7 +16,7 @@ function Player() {
             <article class="landingPage_ vh-100 dt w-100 bg-near-white" >
                 <div class="dtc v-mid tc white ph3 ph4-l flex-column justify-around">
                     <InputGroup
-                        className="w-50 tc center mb4 shadow-1"
+                        className="w-25-l w-40-m w-70 tc center mb4 shadow-1"
                         disabled={false}
                         large={true}
                         value={name}
@@ -33,7 +33,7 @@ function Player() {
                         loading={loading} 
                         disabled={name.length > 0 ? false : true} 
                         className="w-100 tc center mb4"
-                        onClick={ () => {setName(''); history.push('/game'); setLoading(true)} }
+                        onClick={ () => {setName(''); history.push('/game'); setLoading(true); localStorage.setItem('name', name)} }
                         />
                     </ButtonGroup>
                 </div>

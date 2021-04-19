@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 
 import { Alert, Button, ButtonGroup } from '@blueprintjs/core'
 
+import ErrorPage from './ErrorPage'
+
 function Game() {
 
+    let playerName = localStorage.getItem('name')
+    // console.log("p name:", playerName)
     const weapons = ["paper", "scissors", "rock"];
     const [loading, setLoading] = useState(false);
     const [playerOne, setPlayerOne] = useState('')
@@ -55,69 +59,68 @@ function Game() {
         }
     }
 
-    return (
+    return playerName ? (
         <div>
             <div className="w-100 bg-pink vh-100 center">
                 <div className="pa4 cf">
-                <div className="bp3-card fl mb3-l mb3 mb0-l pa3 w-25-l w-50-m w-50 tl">
+                    <div className="flex justify-around bp3-card fl mb3-l mb3 mb0-l pa1 h3  w-25-l w-50-m w-50  mr0-l tl">
                         <span className="b fw5 f5"> Games Played </span>
-                        <span className="tr b fw5 f4 fr black"> { } {totalGame}</span>
+                        <span className="tr b fw5 f4-l f4-m f5 fr black"> { } {totalGame}</span>
                     </div>
-                    <div className="bp3-card fl mb3-l mb3 mb0-l pa3 w-25-l w-50-m w-50 tl">
+                    <div className="flex justify-around bp3-card fl mb3-l mb3 mb0-l pa1 h3  w-25-l w-50-m w-50  mr0-l tl">
                         <span className="b fw5 f5"> Games Tied </span>
-                        <span className="tr b fw5 f4 fr blue"> {totalTie} </span>
+                        <span className="tr b fw5 f4-l f4-m f5 fr blue"> {totalTie} </span>
                     </div>
-                    <div className=" bp3-card fl pa3 w-25-l w-50-m w-50 tl">
-                        <span className="b fw5 f5"> Player score </span>
-                        <span className="tr b fw5 f4 fr green"> { } {playerScore}</span>
+                    <div className=" flex justify-around bp3-card fl pa1 h3  w-25-l w-50-m w-50  mr0-l tl">
+                        <span className="b fw5 f5"> {playerName}'s score </span>
+                        <span className="tr b fw5 f4-l f4-m f5 fr green"> { } {playerScore}</span>
                     </div>
-                    <div className=" bp3-card fl pa3 w-25-l w-50-m w-50 tl">
+                    <div className=" flex justify-around bp3-card fl pa1 h3  w-25-l w-50-m w-50  mr0-l tl">
                         <span className="b fw5 f5"> Computer score </span>
-                        <span className="tr b fw5 f4 fr red"> {computerScore} </span>
+                        <span className="tr b fw5 f4-l f4-m f5 fr red"> {computerScore} </span>
                     </div>
-
                 </div>
                 <div className="tc ">
                     {playerOne.length ?
-                        <span className="f1 lh-copy">You have choosen</span>
+                        <span className="f1-l f2-m f4 lh-copy ">{playerName} has choosen</span>
                         :
-                        <span className="f1 lh-copy">Choose anyone</span>
+                        <span className="f1-l f2-m f4 lh-copy">Choose anyone</span>
                     }
-                    <span className="f1 lh-copy truncate"> {'  '}{playerOne}!!!</span>
+                    <span className="f1-l f2-m f4 lh-copy truncate b"> {'  '}{playerOne}!!!</span>
                 </div>
 
-                <div className="flex justify-around pa4">
-                    <div className="pa3">
+                <div className="flex justify-center pa4 w-80-l w-80-m w-50 center">
+                    <div className="pa2 pa3-l">
                         <img
                             src="https://hacktoberfest.lingonsaft.com/images/rock.png"
                             alt="rock"
                             onClick={() => chooseWeapon("rock")}
-                            className="grow h4 w4 br-100 ba b--black-05"
+                            className="grow mw3 mw4-m mw5-l br-100 ba b--black-05"
                         />
                         <div>
-                            <span className="f2 b "> rock </span>
+                            <span className="f2-l f3-m f4 b "> rock </span>
                         </div>
                     </div>
-                    <div className="pa3">
+                    <div className="pa2 pa3-l">
                         <img
                             src="https://hacktoberfest.lingonsaft.com/images/paper.png"
                             alt="rock"
                             onClick={() => chooseWeapon("paper")}
-                            className="grow h4 w4 br-100 ba b--black-05"
+                            className="grow mw3 mw4-m mw5-l br-100 ba b--black-05"
                         />
                         <div>
-                            <span className="f2 b "> paper </span>
+                            <span className="f2-l f3-m f4 b "> paper </span>
                         </div>
                     </div>
-                    <div className="pa3">
+                    <div className="pa2 pa3-l">
                         <img
                             src="https://hacktoberfest.lingonsaft.com/images/scissors.png"
                             alt="rock"
                             onClick={() => chooseWeapon("scissors")}
-                            className="grow h4 w4 br-100 ba b--black-05"
+                            className="grow mw3 mw4-m mw5-l br-100 ba b--black-05"
                         />
                         <div>
-                            <span className="f2 b "> scissor </span>
+                            <span className="f2-l f3-m f4 b "> scissor </span>
                         </div>
                     </div>
                 </div>
@@ -165,9 +168,9 @@ function Game() {
                             setPlayerScore(winer === _win ? (playerScore+1) : playerScore)
                             setTotalGame(totalGame+1)
                             setTotalTie(winer === _tie ? totalTie+1 : totalTie)
-                            console.log('pc score:', computerScore)
-                            console.log('my score:', playerScore)
-                            console.log('winer:', winer)
+                            // console.log('pc score:', computerScore)
+                            // console.log('my score:', playerScore)
+                            // console.log('winer:', winer)
                         }
                         }
                     >
@@ -177,7 +180,7 @@ function Game() {
                 </div>
             </div>
         </div>
-    )
+    ) : <ErrorPage />
 }
 
 export default Game
