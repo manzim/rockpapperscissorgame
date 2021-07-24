@@ -5,6 +5,8 @@ import { useHistory } from 'react-router';
 
 import '../externalCSS/externalCSS.css'
 
+import background from '../resources/background.jpg'
+
 function Player() {
 
     const [name, setName] = useState('')
@@ -13,7 +15,7 @@ function Player() {
 
     return (
         <div>
-            <article class="landingPage_ vh-100 dt w-100 bg-near-white" >
+            <article class="landingPage_ vh-100 dt w-100 bg-near-white" style={{ backgroundImage: `url(${background})`, opacity: .9 }}>
                 <div class="dtc v-mid tc white ph3 ph4-l flex-column justify-around">
                     <InputGroup
                         className="w-25-l w-40-m w-70 tc center mb4 shadow-1"
@@ -29,7 +31,7 @@ function Player() {
                         <Button 
                         intent="success" 
                         rightIcon="tick" 
-                        text="let's go"
+                        text="let's go"                        
                         loading={loading} 
                         disabled={name.length > 0 ? false : true} 
                         className="w-100 tc center mb4"

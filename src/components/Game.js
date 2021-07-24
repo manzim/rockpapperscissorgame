@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Alert, Button, ButtonGroup } from '@blueprintjs/core'
 
-import ErrorPage from './ErrorPage'
+import ErrorPage from './ErrorPage';
 
 function Game() {
 
